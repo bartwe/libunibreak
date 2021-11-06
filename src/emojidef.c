@@ -42,27 +42,26 @@
 bool ub_is_extended_pictographic(utf32_t ch)
 {
     size_t min = 0;
-    size_t max = len;
+    size_t max = ARRAY_LEN(ep_prop);
     size_t mid;
 
     do
     {
         mid = min + (max - min) / 2;
 
-        if (ch < wbp[mid].start)
+        if (ch < ep_prop[mid].start)
         {
             max = mid;
         }
-        else if (ch > wbp[mid].end)
+        else if (ch > ep_prop[mid].end)
         {
             min = mid + 1;
         }
         else
         {
-            return wbp[mid].prop;
+            return true;
         }
-    }
-    while (min < max);
+    } while (min < max);
 
     return false;
 }
